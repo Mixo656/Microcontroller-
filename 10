@@ -1,0 +1,15 @@
+    AREA TEST, CODE, READONLY
+    ENTRY
+START
+    LDR R0, =0x5         ; Load 0x5 into R0
+    LDR R1, =0x5         ; Load 0x5 into R1
+    LDR R2, =0x2         ; Load 0x2 into R2
+    LDR R3, =0x4         ; Load 0x4 into R3
+
+    SMLAL R3, R2, R0, R1 ; [R2 R3] = [R2 R3] + (R0 * R1)
+    ; R0 * R1 = 0x5 * 0x5 = 0x19
+    ; [R2 R3] = [0x02 0x04] + 0x19 = 0x02 0x1D
+
+BACK
+    B BACK                ; Infinite loop to halt execution
+END
