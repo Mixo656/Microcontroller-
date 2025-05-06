@@ -1,0 +1,36 @@
+#include <LPC214x.h>  // Correct header for LPC2148 microcontroller
+
+#define MAXSIZE 6     // Number of elements in the array
+
+int main(void) {
+    unsigned int naatky[MAXSIZE] = {10, 4, 2, 90, 1, 87};
+    unsigned int i, j, temp;
+    volatile int d;  // Declare delay variable at the beginning
+
+    // Set P0 as output (used to simulate display/output)
+    IODIR0 = 0xFFFFFFFF;  // All pins of Port 0 set as output
+
+    // Bubble Sort Algorithm
+    for (i = 0; i < MAXSIZE - 1; i++) {
+        for (j = 0; j < MAXSIZE - i - 1; j++) {
+            if (naatky[j] > naatky[j + 1]) {
+                // Swap elements
+                temp = naatky[j];
+                naatky[j] = naatky[j + 1];
+                naatky[j + 1] = temp;
+            }
+        }
+    }
+
+    // Output sorted values (simulate via GPIO)
+    for (i = 0; i < MAXSIZE; i++) {
+        IOSET0 = naatky[i]; // Set pins according to value
+
+        // Delay loop
+        for (d = 0; d < 500000; d++); // Simple delay for visibility
+
+        IOCLR0 = 0xFFFFFFFF; // Clear all pins before next value
+    }
+
+    while (1); // Infinite loop to hold program
+}
