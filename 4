@@ -1,0 +1,14 @@
+    AREA MYCODE, CODE, READONLY
+    ENTRY
+    EXPORT __main
+
+__main
+START
+    LDR R0, =0x112        ; Load 0x112 (274 decimal) into R0
+    LDR R1, =0x341        ; Load 0x341 (833 decimal) into R1
+    SUB R2, R0, R1        ; R2 = R0 - R1 = 274 - 833 = 0xFFFFFEFB (negative result)
+
+HERE
+    B HERE                ; Infinite loop
+
+    END
