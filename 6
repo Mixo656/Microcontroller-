@@ -1,0 +1,19 @@
+    AREA FACTORIAL, CODE, READONLY
+    ENTRY
+    EXPORT __main
+
+__main
+    MOV R0, #7          ; R0 = Input number (7)
+    MOV R1, #1          ; R1 = Result accumulator (starts at 1)
+
+LOOP
+    MUL R2, R1, R0      ; R2 = R1 * R0 (temporary to avoid register overlap issue)
+    MOV R1, R2          ; Store result back to R1
+    SUB R0, R0, #1      ; R0 = R0 - 1
+    CMP R0, #1          ; Stop when R0 == 1
+    BGT LOOP
+
+STOP
+    B STOP              ; Infinite loop (result in R1)
+
+    END
