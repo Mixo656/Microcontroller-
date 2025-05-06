@@ -1,0 +1,18 @@
+    AREA Program, CODE, READONLY
+
+    ENTRY
+    MOV R5, #6            ; Set loop counter to 6 (number of bytes to transfer)
+    LDR R0, =BLOCK1       ; Load address of source block (BLOCK1)
+    LDR R1, =BLOCK2       ; Load address of destination block (BLOCK2)
+
+NEXT
+    LDRB R2, [R0], #1     ; Load byte from BLOCK1 (R0) into R2 and increment R0 by 1
+    STRB R2, [R1], #1     ; Store byte from R2 into BLOCK2 (R1) and increment R1 by 1
+    SUBS R5, #1           ; Decrement R5, update condition flags
+    BNE NEXT              ; If R5 != 0, continue loop
+
+    AREA Data1, DATA, READWRITE
+BLOCK1  DCB 0x11, 0x22, 0x33, 0x44, 0x55, 0x66  ; Data to be transferred
+BLOCK2  DCB 0                                       ; Destination block (empty initially)
+
+    END
