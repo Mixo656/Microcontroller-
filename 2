@@ -1,0 +1,14 @@
+    AREA MYCODE, CODE, READONLY
+    ENTRY
+    EXPORT __main
+
+__main
+START
+    LDR R0, =0x112        ; Load 0x112 into R0
+    LDR R1, =0x341        ; Load 0x341 into R1
+    SUB R2, R1, R0        ; R2 = R1 - R0 = 0x341 - 0x112 = 0x22F
+
+HERE
+    B HERE                ; Infinite loop
+
+    END
