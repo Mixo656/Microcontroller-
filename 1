@@ -1,0 +1,10 @@
+        AREA MYCODE, CODE, READONLY
+        ENTRY               ; Mark program entry point
+
+START   LDR R0, =0x112      ; Load 0x112 into R0
+        LDR R1, =0x341      ; Load 0x341 into R1
+        ADD R2, R1, R0      ; R2 = R1 + R0
+
+HERE    B HERE              ; Infinite loop
+
+        END                 ; Mark end of file
