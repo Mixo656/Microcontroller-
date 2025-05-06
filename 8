@@ -1,0 +1,18 @@
+    AREA ADDSUM, CODE, READONLY
+    ENTRY
+    EXPORT __main
+
+__main
+    MOV R0, #1          ; Start from 1
+    MOV R1, #0          ; Sum starts from 0 (R1 will hold the result)
+
+LOOP
+    ADD R1, R1, R0      ; Add R0 to the sum in R1 (R1 = R1 + R0)
+    ADD R0, R0, #1      ; Increment R0 (R0 = R0 + 1)
+    CMP R0, #11         ; Check if R0 has reached 11
+    BNE LOOP            ; If R0 != 11, continue the loop
+
+STOP
+    B STOP              ; Infinite loop (result in R1)
+
+    END
