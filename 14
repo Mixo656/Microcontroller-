@@ -1,0 +1,29 @@
+        AREA LARGEST, CODE, READONLY
+        EXPORT __main
+
+__main  MOV     R5, #6              ; Initialize counter (N-1, since we start with 1st element)
+        LDR     R1, =ARRAY          ; Load address of ARRAY
+        LDR     R2, [R1], #4        ; Load first number into R2, increment R1 to next element
+
+LOOP    LDR     R4, [R1], #4        ; Load next number into R4, post-increment R1
+        CMP     R2, R4              ; Compare current max (R2) with new value (R4)
+        BHI     SKIP                ; If R2 > R4, skip updating
+        MOV     R2, R4              ; Else, update R2 with R4 (new max)
+
+SKIP    SUBS    R5, R5, #1          ; Decrement loop counter
+        BNE     LOOP                ; If not zero, continue loop
+
+        LDR     R4, =RESULT         ; Load address of RESULT
+        STR     R2, [R4]            ; Store the max value found into RESULT
+
+        B       .                   ; Infinite loop (halt)
+
+; ===== DATA SECTION =====
+        AREA DATA2, DATA, READWRITE
+
+ARRAY   DCD     0x44444444, 0xB00BDEFF, 0x11111111, 0x33333333
+        DCD     0xAAAAAAAA, 0x88888888, 0x99999999
+
+RESULT  DCD     0x0                 ; Memory to store the result
+
+        END
