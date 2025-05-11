@@ -1,0 +1,19 @@
+#include <LPC214x.h>
+
+int main() {
+    int i, fact = 1, n = 5;
+
+    IO0DIR = 0xFFFFFFFF;  // Configure all Port 0 pins as output
+
+    if (n > 0) {
+        for (i = 1; i <= n; i++) {
+            fact = fact * i;      // Compute factorial
+        }
+    }
+
+    IO0CLR = 0xFFFFFFFF;          // Clear all pins before setting
+    IO0SET = fact;                // Set pins corresponding to factorial value (e.g., 120 = 0x78)
+
+    while (1);                    // Infinite loop to observe output
+    return 0;
+}
