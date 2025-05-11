@@ -1,24 +1,23 @@
-#include <LPC214x.h>  // Header for LPC214x series
+#include <LPC214x.h>
 
-void delay() {
-    volatile int d;
-    for (d = 0; d < 500000; d++);  // 
-}
+int main(void) {
+    unsigned int pin;  // Declare variables at the top
 
-int main() {
-    int i = 0, val = 1, n = 5;
+    // Set all Port 0 pins as output
+    IO0DIR = 0xFFFFFFFF;
 
-    IODIR0 = 0xFFFFFFFF; // Set all Port 0 pins as output
+    // Set pins P0.3, P0.4, P0.5, and P0.6 high
+    IO0SET = 0x00000078;
 
-    if (n > 0) {
-        for (i = 1; i <= n; i++) {
-            val = i;           // Use current value of i
-            IOSET0 = val;      // Set bits on P0 (you can use IOCLR0 to clear if needed)
-            delay();           // Delay for visibility
-            IOCLR0 = 0xFFFFFFFF; // Clear all bits after delay
-        }
+    // Clear no pins (optional)
+    IO0CLR = 0x00000000;
+
+    // Read the current pin values into a variable
+    pin = IO0PIN;
+
+    while (1) {
+        // Optional loop
     }
 
-    IOSET0 = val;  // Final output
-    while (1);     // Infinite loop
+    return 0;
 }
