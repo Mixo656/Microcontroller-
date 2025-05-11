@@ -1,0 +1,18 @@
+#include <LPC214x.h>
+
+int main() {
+    char upr = 'A', lowr = 'e';
+    int ascii;
+
+    IO0DIR = 0xFFFFFFFF;     // Set all PORT0 pins as output
+
+    IO0PIN = upr;            // Output uppercase 'A'
+    ascii = upr + 32;        // Convert 'A' to lowercase => 'a'
+    IO0PIN = ascii;          // Output lowercase 'a'
+
+    IO0PIN = lowr;           // Output lowercase 'e'
+    ascii = lowr - 32;       // Convert 'e' to uppercase => 'E'
+    IO0PIN = ascii;          // Output uppercase 'E'
+
+    return 0;
+}
